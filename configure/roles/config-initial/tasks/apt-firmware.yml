@@ -1,0 +1,31 @@
+# This file is part of CODEPLOY.ORG.
+#
+# CODEPLOY.ORG is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# CODEPLOY.ORG is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
+
+- name: Install firmware-iwlwifi for Dell
+  ansible.builtin.apt:
+    pkg:
+      - firmware-iwlwifi
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+  when: |
+    ansible_facts['system_vendor'] == "Dell Inc." and
+    ansible_facts['product_name'] == "XPS 15 7590" or
+    ansible_facts['product_name'] == "Lattitude E-6420" or
+    ansible_facts['product_name'] == "Lattitude E-6430"
+
+- name: Install firmware-brcm80211 for Apple
+  ansible.builtin.apt:
+    pkg:
+      - firmware-brcm80211
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+  when: |
+    ansible_facts['system_vendor'] == "Apple Inc." and
+    ansible_facts['product_name'] == "MacBookAir4,2"
