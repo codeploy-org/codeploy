@@ -16,8 +16,8 @@
   when: |
     ansible_facts['system_vendor'] == "Dell Inc." and
     ansible_facts['product_name'] == "XPS 15 7590" or
-    ansible_facts['product_name'] == "Lattitude E-6420" or
-    ansible_facts['product_name'] == "Lattitude E-6430"
+    ansible_facts['product_name'] == "Latitude E6420" or
+    ansible_facts['product_name'] == "Latitude E6430"
 
 - name: Install firmware-brcm80211 for Apple
   ansible.builtin.apt:

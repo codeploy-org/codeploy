@@ -35,5 +35,5 @@ Deploying infrastructure using code is a mindful act of weaving the digital tape
 | desktop.lab.corp | Acer | Aspire M7811 |
 | a1369.lab.home | Apple Inc. | MacBookAir4,2 |
 | xps7590.lab.home | Dell Inc. | XPS 15 7590 |
-| e6420.lab.home | Dell Inc. | Latitude E-6420 |
-| e6430.lab.home | Dell Inc. | Latitude E-6430 |
+| e6420.lab.home | Dell Inc. | Latitude E6420 |
+| e6430.lab.home | Dell Inc. | Latitude E6430 |

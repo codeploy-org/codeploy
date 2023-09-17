@@ -19,5 +19,5 @@
     state: present
   when: |
     ansible_facts['system_vendor'] == "Dell Inc." and
-    ansible_facts['product_name'] == "Lattitude E-6420" or
-    ansible_facts['product_name'] == "Lattitude E-6430"
+    ansible_facts['product_name'] == "Latitude E6420" or
+    ansible_facts['product_name'] == "Latitude E6430"
