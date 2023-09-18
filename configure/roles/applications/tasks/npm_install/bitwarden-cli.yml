@@ -13,4 +13,3 @@
   community.general.npm:
     name: bitwarden-cli
     global: true
-    state: presents
