@@ -22,6 +22,14 @@
   include_tasks: ./roles/applications/tasks/apt_install/{{ item }}
   loop: "{{ items.stdout_lines}}"
 
+- name : Finding items to 'npm install'
+  shell: ls -v ./roles/applications/tasks/npm_install
+  register: items
+
+- name : Looping the sorted items to 'npm install'
+  include_tasks: ./roles/applications/tasks/npm_install/{{ item }}
+  loop: "{{ items.stdout_lines}}"
+
 - name : Finding items to 'snap install'
   shell: ls -v ./roles/applications/tasks/snap_install
   register: items
