@@ -11,4 +11,4 @@
 - include_tasks: apt-dist-upgrade.yml
 - include_tasks: set-hid-config.yml
 - include_tasks: apt-firmware.yml
-- include_tasks: apt-nvidia-legacy.yml
+# - include_tasks: apt-nvidia-legacy.yml
