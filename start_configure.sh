@@ -8,7 +8,7 @@
 
 # Check if Ansible is installed, if not install
 apt_app="ansible"
-apt list -- installed $apt_app | grep -i $apt_app || sudo apt install -y $apt_sapp
+apt list --installed $apt_app | grep -i $apt_app || sudo apt install -y $apt_app
 
 # Set Ansible config and start accordingly
 export ANSIBLE_CONFIG=./configure/ansible.cfg 
