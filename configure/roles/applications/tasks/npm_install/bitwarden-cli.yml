@@ -9,7 +9,7 @@
 # Installing:
 #   bitwarden-cli  - Password Manager CLI
 
-- name: "{{ items.cmd | split('/') | last }} - {{ item | splitext | first }} - installing"
-  community.general.npm:
-    name: bitwarden-cli
-    global: true
+# - name: "{{ items.cmd | split('/') | last }} - {{ item | splitext | first }} - installing"
+#   community.general.npm:
+#     name: bitwarden-cli
+#     global: true
