@@ -6,5 +6,10 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
+# Check if Ansible is installed, if not install
+apt_app="ansible"
+apt list -- installed $apt_app | grep -i $apt_app || sudo apt install -y $apt_sapp
+
+# Set Ansible config and start accordingly
 export ANSIBLE_CONFIG=./configure/ansible.cfg 
-ansible-playbook ./configure/playbook.yml 
+ansible-playbook ./configure/playbook.yml # -vvvvv
