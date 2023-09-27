@@ -12,7 +12,6 @@
     content: | 
       options hid_apple fnmode=2
   when: |
-    ansible_facts['system_vendor'] == "Apple Inc." and
     ansible_facts['product_name'] == "MacBookAir4,2"
   register: fn
 
@@ -20,5 +19,4 @@
   command: update-initramfs -u -k all
   when: |
     fn.changed and
-    ansible_facts['system_vendor'] == "Apple Inc." and
     ansible_facts['product_name'] == "MacBookAir4,2"

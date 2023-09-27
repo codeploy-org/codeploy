@@ -14,6 +14,6 @@
   become_method: sudo
 
   roles:
-    - config-initial
-    - applications
-    - config-final
+    - initialize
+    - deploy
+    - finalize

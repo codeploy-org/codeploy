@@ -6,12 +6,10 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
-#ansible.cfg
-[defaults]
-transport = local
-log_path = ./ansible.log
-stdout_callback = yaml
+# Check if Ansible is installed, if not install
+apt_app="ansible"
+apt list --installed $apt_app | grep -i $apt_app || sudo apt install -y $apt_app
 
-[privilege_escalation]
-become = True
-become_ask_pass = True
+# Set Ansible config and start accordingly
+export ANSIBLE_CONFIG=./deploy/ansible.cfg 
+ansible-playbook ./deploy/playbook.yml
