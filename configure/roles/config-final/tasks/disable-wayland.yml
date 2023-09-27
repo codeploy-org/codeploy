@@ -6,9 +6,9 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
-- name: Disable Wayland
-  become: true
-  ansible.builtin.lineinfile:
-    path: /etc/gdm3/daemon.conf
-    regexp: '#WaylandEnable=false'
-    line: 'WaylandEnable=false'
+# - name: Disable Wayland
+#   become: true
+#   ansible.builtin.lineinfile:
+#     path: /etc/gdm3/daemon.conf
+#     regexp: '#WaylandEnable=false'
+#     line: 'WaylandEnable=false'
