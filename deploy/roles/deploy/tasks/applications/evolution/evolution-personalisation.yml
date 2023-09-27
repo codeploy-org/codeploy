@@ -8,4 +8,4 @@
 
 - name: Evolution - Personalisation
   debug:
-    msg: "Need to include configuration"
+    msg: "personalisation to be defined"
