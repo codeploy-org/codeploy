@@ -6,26 +6,26 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
-- name: Install firmware-iwlwifi for Dell
-  ansible.builtin.apt:
-    pkg:
-      - firmware-iwlwifi
-    update_cache: yes
-    cache_valid_time: 3600
-    state: present
-  when: |
-    ansible_facts['system_vendor'] == "Dell Inc." and
-    ansible_facts['product_name'] == "XPS 15 7590" or
-    ansible_facts['product_name'] == "Latitude E6420" or
-    ansible_facts['product_name'] == "Latitude E6430"
+# - name: Install firmware-iwlwifi for Dell
+#   ansible.builtin.apt:
+#     pkg:
+#       - firmware-iwlwifi
+#     update_cache: yes
+#     cache_valid_time: 3600
+#     state: present
+#   when: |
+#     ansible_facts['system_vendor'] == "Dell Inc." and
+#     ansible_facts['product_name'] == "XPS 15 7590" or
+#     ansible_facts['product_name'] == "Latitude E6420" or
+#     ansible_facts['product_name'] == "Latitude E6430"
 
-- name: Install firmware-brcm80211 for Apple
-  ansible.builtin.apt:
-    pkg:
-      - firmware-brcm80211
-    update_cache: yes
-    cache_valid_time: 3600
-    state: present
-  when: |
-    ansible_facts['system_vendor'] == "Apple Inc." and
-    ansible_facts['product_name'] == "MacBookAir4,2"
+# - name: Install firmware-brcm80211 for Apple
+#   ansible.builtin.apt:
+#     pkg:
+#       - firmware-brcm80211
+#     update_cache: yes
+#     cache_valid_time: 3600
+#     state: present
+#   when: |
+#     ansible_facts['system_vendor'] == "Apple Inc." and
+#     ansible_facts['product_name'] == "MacBookAir4,2"
