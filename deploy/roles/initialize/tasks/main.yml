@@ -6,29 +6,35 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
-# Environment specific
-- name : Finding 'initialize' items in 'environment'
-  shell: ls -v ./roles/initialize/tasks/environment
-  register: items
+- name: Starting role 'environment'
+  find:
+    paths: ./roles/initialize/tasks/environment
+    patterns: "*.yml"
+    recurse: yes
+  register: found_files
 
-- name : Looping the sorted 'initialize' items in 'environment'
-  include_tasks: ./roles/initialize/tasks/environment/{{ item }}
-  loop: "{{ items.stdout_lines}}"
+- name: Starting tasks
+  include_tasks: ./{{ item }}
+  loop: "{{ found_files.files | map(attribute='path') | list | sort }}"
 
-# Hardware specific
-- name : Finding 'initialize' items in 'hardware'
-  shell: ls -v ./roles/initialize/tasks/hardware
-  register: items
+- name: Starting role 'hardware'
+  find:
+    paths: ./roles/initialize/tasks/hardware
+    patterns: "*.yml"
+    recurse: yes
+  register: found_files
 
-- name : Looping the sorted 'initialize' items in 'hardware'
-  include_tasks: ./roles/initialize/tasks/hardware/{{ item }}
-  loop: "{{ items.stdout_lines}}"
+- name: Starting tasks
+  include_tasks: ./{{ item }}
+  loop: "{{ found_files.files | map(attribute='path') | list | sort }}"
 
-# Operating System specific
-- name : Finding 'initialize' items in 'os'
-  shell: ls -v ./roles/initialize/tasks/os
-  register: items
+- name: Starting role 'os'
+  find:
+    paths: ./roles/initialize/tasks/os
+    patterns: "*.yml"
+    recurse: yes
+  register: found_files
 
-- name : Looping the sorted 'initialize' items in 'os'
-  include_tasks: ./roles/initialize/tasks/os/{{ item }}
-  loop: "{{ items.stdout_lines}}"
+- name: Starting tasks
+  include_tasks: ./{{ item }}
+  loop: "{{ found_files.files | map(attribute='path') | list | sort }}"

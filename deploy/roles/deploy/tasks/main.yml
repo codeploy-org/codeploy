@@ -6,47 +6,13 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
-# APT remove
-- name : Finding 'install' items in 'apt remove'
-  shell: ls -v ./roles/deploy/tasks/apt_remove
-  register: items
+- name: Starting role 'deploy'
+  find:
+    paths: ./roles/deploy/tasks/applications
+    patterns: "*.yml"
+    recurse: yes
+  register: found_files
 
-- name : Looping the sorted items to 'apt remove'
-  include_tasks: ./roles/deploy/tasks/apt_remove/{{ item }}
-  loop: "{{ items.stdout_lines}}"
-
-# APT install
-- name : Finding items to 'apt install'
-  shell: ls -v ./roles/deploy/tasks/apt_install
-  register: items
-
-- name : Looping the sorted items to 'apt install'
-  include_tasks: ./roles/deploy/tasks/apt_install/{{ item }}
-  loop: "{{ items.stdout_lines}}"
-
-# NPM install
-- name : Finding items to 'npm install'
-  shell: ls -v ./roles/deploy/tasks/npm_install
-  register: items
-
-- name : Looping the sorted items to 'npm install'
-  include_tasks: ./roles/deploy/tasks/npm_install/{{ item }}
-  loop: "{{ items.stdout_lines}}"
-
-# Snap install
-- name : Finding items to 'snap install'
-  shell: ls -v ./roles/deploy/tasks/snap_install
-  register: items
-
-- name : Looping the sorted items to 'snap install'
-  include_tasks: ./roles/deploy/tasks/snap_install/{{ item }}
-  loop: "{{ items.stdout_lines}}"
-
-# Flatpak install
-- name : Finding items to 'flatpak install'
-  shell: ls -v ./roles/deploy/tasks/flatpak_install
-  register: items
-
-- name : Looping the sorted items to 'flatpak install'
-  include_tasks: ./roles/deploy/tasks/flatpak_install/{{ item }}
-  loop: "{{ items.stdout_lines}}"
+- name: Starting tasks
+  include_tasks: ./{{ item }}
+  loop: "{{ found_files.files | map(attribute='path') | list | sort }}"

@@ -6,11 +6,12 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
-# Operating System specific
-- name: Finding 'finalize' items in 'os'
-  shell: ls -v ./roles/finalize/tasks/os
-  register: items
-
-- name: Looping the sorted 'finalize' items in 'os'
-  include_tasks: ./roles/finalize/tasks/os/{{ item }}
-  loop: "{{ items.stdout_lines }}"
+- name: Evolution - deploy
+  ansible.builtin.apt:
+    pkg:
+      - evolution
+      - evolution-ews
+    autoremove: yes
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
