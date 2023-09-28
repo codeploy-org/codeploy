@@ -37,9 +37,9 @@ _To do_
 
 The deployment consists of the configuring the OS, installing and configuring applications and finalizing the deployment. 
 
-Start the playbook by running, using your regular account;
+Start the playbook by running, using your regular account.
 
-`sudo ./start_deploy.sh`
+`./start_deploy.sh`
 
 ## Machines details gathered from facts
 
