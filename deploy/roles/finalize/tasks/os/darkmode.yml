@@ -8,7 +8,7 @@
 
 ---
 - name: Enable Dark Mode
-  command: gsettings set --user {{ ansible_facts['env'].SUDO_USER}} org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+  command: gsettings --user {{ ansible_facts['env'].SUDO_USER}} set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
 
 - name: Style set to dark
-  command: gsettings set --user {{ ansible_facts['env'].SUDO_USER}} org.gnome.desktop.interface color-scheme 'prefer-dark'
+  command: gsettings --user {{ ansible_facts['env'].SUDO_USER}} set org.gnome.desktop.interface color-scheme 'prefer-dark'
