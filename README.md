@@ -4,35 +4,49 @@ Deploying infrastructure using code is a mindful act of weaving the digital tape
 
 ## Prerequisites
 
-### Grant user sudo-rights
+### Supported OS version
+
+Based on imperial studies codeploy.org supports the following operating systems
+
+*   [Debian](https://www.debian.org/) [12 - Bookworm]()
+
+
+### Grant user sudo-rights to current user
 
 `su root`
 
-`/usr/sbin/usermod -aG sudo $USER`
+`/sbin/usermod -aG sudo $USER`
 
-`/usr/sbin/reboot`
+### Comment out the cdrom: reference from the APT sources list from Debian-based distributions
 
-### Install ansible from repo
+`sed -i '/^deb cdrom:/ s/^/# /I' /etc/apt/sources.list`
 
-#### Install Ansible
+### Reboot system to make changes effective
 
-`sudo apt install -y ansible`
+`/sbin/reboot`
 
-#### Create symbolic link to Python3 
+## Creating an Operating System image
 
-`sudo ln -s /usr/bin/python3 /usr/bin/python`
+_To do_
 
-#### Install community collections
+## Provision the image over multiple machines
 
-`ansible-galaxy collection install community.general`
+_To do_
 
-## Machines
+## Starting the deployment
+
+The deployment consists of the configuring the OS, installing and configuring applications and finalizing the deployment. 
+
+Start the playbook by running, using your regular account;
+
+`sudo ./start_deploy.sh`
+
+## Machines details gathered from facts
 
 | Name | Brand | Type |
 | --- | --- | --- |
 | debian12.lab.home | QEMU | Standard PC (Q35 + ICH9, 2009) |
 | bookworm.lab.corp | VMware, Inc.| VMware Virtual Platform |
-| desktop.lab.corp | Acer | Aspire M7811 |
 | a1369.lab.home | Apple Inc. | MacBookAir4,2 |
 | xps7590.lab.home | Dell Inc. | XPS 15 7590 |
 | e6420.lab.home | Dell Inc. | Latitude E6420 |
