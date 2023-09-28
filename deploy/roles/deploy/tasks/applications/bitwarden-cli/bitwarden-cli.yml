@@ -19,5 +19,5 @@
 
 - name: Install Bitwarden CLI
   npm:
-    name: @bitwarden/cli
+    name: '@bitwarden/cli'
     global: yes
