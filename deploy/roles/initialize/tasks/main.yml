@@ -6,35 +6,38 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
-- name: Starting role 'environment'
+# environment
+- name: Finding tasks 'environment'
   find:
     paths: ./roles/initialize/tasks/environment
     patterns: "*.yml"
     recurse: yes
   register: found_files
 
-- name: Starting tasks
+- name: Starting tasks 'environment'
   include_tasks: ./{{ item }}
   loop: "{{ found_files.files | map(attribute='path') | list | sort }}"
 
-- name: Starting role 'hardware'
+# Hardware
+- name: Findind tasks 'hardware'
   find:
     paths: ./roles/initialize/tasks/hardware
     patterns: "*.yml"
     recurse: yes
   register: found_files
 
-- name: Starting tasks
+- name: Starting tasks 'hardware'
   include_tasks: ./{{ item }}
   loop: "{{ found_files.files | map(attribute='path') | list | sort }}"
 
-- name: Starting role 'os'
+# OS
+- name: Finding tasks 'os'
   find:
     paths: ./roles/initialize/tasks/os
     patterns: "*.yml"
     recurse: yes
   register: found_files
 
-- name: Starting tasks
+- name: Starting tasks 'os'
   include_tasks: ./{{ item }}
   loop: "{{ found_files.files | map(attribute='path') | list | sort }}"
