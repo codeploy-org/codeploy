@@ -6,12 +6,16 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 ---
-- name: Install Node.js and npm
+- name: Bitwarden CLI prerequisite - node.js
   package:
-    name: |
-      nodejs
-      npm
+    name: nodejs
     state: present
+
+- name: Bitwarden CLI prerequisite - npm
+  package:
+    name: npm
+    state: present
+
 
 - name: Install Bitwarden CLI
   npm:
