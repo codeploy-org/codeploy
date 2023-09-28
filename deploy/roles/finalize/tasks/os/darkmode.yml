@@ -8,4 +8,7 @@
 
 ---
 - name: Enable Dark Mode
-  command: gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+  command: gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+
+- name: Style set to dark
+  command: gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
