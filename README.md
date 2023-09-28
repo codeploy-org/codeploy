@@ -4,6 +4,14 @@ Deploying infrastructure using code is a mindful act of weaving the digital tape
 
 ## Prerequisites
 
+Have an supported OS installed on your computer.
+
+Download the repo by either;
+*  as a [.zip archive](https://github.com/codeploy-org/codeploy/archive/refs/heads/main.zip) directly from GitHub.com.
+*  start from a terminal:
+  
+> git clone https://github.com/codedeploy-org/codeploy
+
 ### Supported OS version
 
 Based on imperial studies codeploy.org supports the following operating systems
