@@ -7,13 +7,13 @@
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
 # Operating System specific
-- name: Starting role 'os'
+- name: Finding tasks 'os'
   find:
-    paths: ./roles/initialize/tasks/os
+    paths: ./roles/finalize/tasks/os
     patterns: "*.yml"
     recurse: yes
   register: found_files
 
-- name: Starting tasks
+- name: Starting tasks 'os'
   include_tasks: ./{{ item }}
   loop: "{{ found_files.files | map(attribute='path') | list | sort }}"
