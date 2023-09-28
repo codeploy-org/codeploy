@@ -9,12 +9,14 @@
 ---
 - name: Enable Dark Mode
   gsetting:
-    user: {{ ansible_facts['env'].SUDO_USER}}
+    user: "{{ ansible_facts['env'].SUDO_USER}}"
     settings:
-      # org.gnome.shell.remember-mount-password: false
-      # org.gnome.desktop.wm.keybindings.panel-main-menu: "@as []"
-      # org.gnome.nautilus.preferences.default-folder-viewer: "'list-view'"
       org.gnome.desktop.interface gtk-theme: "Adwaita-dark"
+
+    # settings:
+    #   org.gnome.shell.remember-mount-password: false
+    #   org.gnome.desktop.wm.keybindings.panel-main-menu: "@as []"
+    #   org.gnome.nautilus.preferences.default-folder-viewer: "'list-view'"
 
 # - name: Style set to dark
 #   command: gsettings --user {{ ansible_facts['env'].SUDO_USER}} set org.gnome.desktop.interface color-scheme 'prefer-dark'
