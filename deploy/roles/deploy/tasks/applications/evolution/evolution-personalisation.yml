@@ -6,6 +6,32 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
-- name: Evolution - Personalisation
+# gsettings set org.gnome.evolution.mail.accounts account-name smtp-server 'smtp.example.com'
+# gsettings set org.gnome.evolution.mail.accounts account-name smtp-port 587
+# gsettings set org.gnome.evolution.mail.accounts account-name smtp-use-starttls true
+# gsettings set org.gnome.evolution.mail.accounts account-name smtp-auth 'plain'
+# gsettings set org.gnome.evolution.mail.accounts account-name smtp-username 'your_username'
+# gsettings set org.gnome.evolution.mail.accounts account-name imap-server 'imap.example.com'
+# gsettings set org.gnome.evolution.mail.accounts account-name imap-port 993
+# gsettings set org.gnome.evolution.mail.accounts account-name imap-use-starttls true
+# gsettings set org.gnome.evolution.mail.accounts account-name imap-auth 'plain'
+# gsettings set org.gnome.evolution.mail.accounts account-name imap-username 'your_username'
+
+# # Set the default mail composer
+# gsettings set org.gnome.evolution.mail composer 'evolution'
+
+# # Set the default calendar appointment duration (in minutes)
+# gsettings set org.gnome.evolution.calendar default-appointment-duration 60
+
+# # Set the signature for your email account
+# gsettings set org.gnome.evolution.mail identities "['your_username']"
+# gsettings set org.gnome.evolution.mail.identity.your_username signature "Your email signature here"
+
+# evolution --force-shutdown
+# evolution
+
+- name: looptyloop
   debug:
-    msg: "personalisation to be defined"
+    msg: "{{ item }}"
+  loop: "{{ lookup('ansible.builtin.env', 'codeploy_evolution_test') }}"
+
