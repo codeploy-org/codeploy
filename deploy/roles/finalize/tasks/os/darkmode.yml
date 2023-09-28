@@ -6,17 +6,10 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
----
-- name: Enable Dark Mode
-  gsetting:
-    user: "{{ ansible_facts['env'].SUDO_USER}}"
-    settings:
-      org.gnome.desktop.interface gtk-theme: "Adwaita-dark"
-
-    # settings:
-    #   org.gnome.shell.remember-mount-password: false
-    #   org.gnome.desktop.wm.keybindings.panel-main-menu: "@as []"
-    #   org.gnome.nautilus.preferences.default-folder-viewer: "'list-view'"
-
-# - name: Style set to dark
-#   command: gsettings --user {{ ansible_facts['env'].SUDO_USER}} set org.gnome.desktop.interface color-scheme 'prefer-dark'
+# ---
+# - name: Set Dark Mode using dconf
+#   ansible.builtin.dconf:
+#     key: /org/gnome/desktop/interface/gtk-theme
+#     value: 'Adwaita-dark'
+#     state: present  # Use 'present' to set the value, 'absent' to remove it
+# #    user: "{{ ansible_user }}"  # Specify the target user
