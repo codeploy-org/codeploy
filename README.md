@@ -9,8 +9,8 @@ Have an supported OS installed on your computer.
 Download the repo by either;
 *  as a [.zip archive](https://github.com/codeploy-org/codeploy/archive/refs/heads/main.zip) directly from GitHub.com.
 *  start from a terminal:
-
-    git clone https://github.com/codedeploy-org/codeploy
+  
+> git clone https://github.com/codedeploy-org/codeploy
 
 ### Supported OS version
 
