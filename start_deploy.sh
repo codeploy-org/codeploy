@@ -7,7 +7,14 @@
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
 # Ensure the latest changes are pulled
-git pull
+
+if [ -d "~/codeploy" ]; then
+    cd ~/codeploy
+    git pull
+else
+    git clone https://github.com/codeploy-org/codeploy ~/codeploy
+    cd ~/codeploy
+fi
 
 # Check if Ansible is installed, if not install
 apt_app="ansible"
