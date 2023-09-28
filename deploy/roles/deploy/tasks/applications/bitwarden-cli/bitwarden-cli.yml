@@ -8,11 +8,10 @@
 ---
 - name: Install Node.js and npm
   package:
-    name: "{{ item }}"
+    name: |
+      nodejs
+      npm
     state: present
-  loop:
-    - nodejs
-    - npm
 
 - name: Install Bitwarden CLI
   npm:
