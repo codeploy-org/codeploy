@@ -6,6 +6,9 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
+# Ensure the latest changes are pulled
+git pull
+
 # Check if Ansible is installed, if not install
 apt_app="ansible"
 apt list --installed $apt_app | grep -i $apt_app || sudo apt install -y $apt_app
