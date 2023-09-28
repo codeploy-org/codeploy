@@ -6,13 +6,13 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
-- name: Starting role 'deploy'
+- name: Finding tasks 'deploy'
   find:
     paths: ./roles/deploy/tasks/applications
     patterns: "*.yml"
     recurse: yes
   register: found_files
 
-- name: Starting tasks
+- name: Starting tasks 'deploy'
   include_tasks: ./{{ item }}
   loop: "{{ found_files.files | map(attribute='path') | list | sort }}"
