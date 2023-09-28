@@ -1,0 +1,38 @@
+# This file is part of CODEPLOY.ORG.
+#
+# CODEPLOY.ORG is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# CODEPLOY.ORG is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
+---
+
+- name: Update apt package cache
+  apt:
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Install Snapd on Debian/Ubuntu
+  apt:
+    name: snapd
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Install Snap Core on Debian/Ubuntu
+  apt:
+    name: snap-confine
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Check if Snap is installed
+  ansible.builtin.command: snap --version
+  register: snap_version
+  ignore_errors: yes  # Ignore errors if Snap is not installed
+  when: ansible_os_family == 'Debian'
+
+- name: Install Bitwarden with Snap
+  ansible.builtin.snap:
+    name: bitwarden
+    state: present
+  become: yes
+  when: snap_version.rc == 0
