@@ -8,10 +8,12 @@
 
 # Ensure the latest changes are pulled
 
-if [ -d "~/codeploy" ]; then
+if [ -d ~/codeploy ]; then
+    echo git pull
     cd ~/codeploy
     git pull
 else
+    echo git clone
     git clone https://github.com/codeploy-org/codeploy ~/codeploy
     cd ~/codeploy
 fi
