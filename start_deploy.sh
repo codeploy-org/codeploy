@@ -24,6 +24,10 @@ apt list --installed $apt_app | grep -i $apt_app || sudo apt install -y $apt_app
 
 source ~/Documents/drive/env-settings/*
 
+# Include community collection
+
+ansible-galaxy install -r ./deploy/requirements/collection-community-general.yml
+
 # Set Ansible config and start accordingly
 export ANSIBLE_CONFIG=./deploy/ansible.cfg 
 ansible-playbook ./deploy/playbook.yml
