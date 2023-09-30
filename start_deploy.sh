@@ -26,7 +26,7 @@ source ~/Documents/drive/env-settings/*
 
 # Include community collection
 
-ansible-galaxy install -r ./deploy/requirements/collection-community-general.yml
+ansible-galaxy collection install -v -r ./deploy/requirements/collection-community-general.yml
 
 # Set Ansible config and start accordingly
 export ANSIBLE_CONFIG=./deploy/ansible.cfg 
