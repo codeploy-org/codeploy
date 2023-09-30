@@ -15,5 +15,5 @@
 
   roles:
     - initialize
-    # - deploy
-    # - finalize
+    - deploy
+    - finalize
