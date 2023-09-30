@@ -22,6 +22,8 @@ fi
 apt_app="ansible"
 apt list --installed $apt_app | grep -i $apt_app || sudo apt install -y $apt_app
 
+sudo apt install python3-psutil
+
 source ~/Documents/drive/env-settings/*
 
 # Include community collection
