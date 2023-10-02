@@ -34,7 +34,8 @@ Download the repo by either;
 *  as a [.zip archive](https://github.com/codeploy-org/codeploy/archive/refs/heads/main.zip) directly from GitHub.com.
 *  start from a terminal:
   
-> git clone https://github.com/codedeploy-org/codeploy
+> sudo apt install -y git
+> git clone https://github.com/codeploy-org/codeploy ~/codeploy
 
 
 ## Creating an Operating System image
