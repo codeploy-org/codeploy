@@ -4,20 +4,13 @@ Deploying infrastructure using code is a mindful act of weaving the digital tape
 
 ## Prerequisites
 
-Have an supported OS installed on your computer.
+### Install a supported OS version
 
-Download the repo by either;
-*  as a [.zip archive](https://github.com/codeploy-org/codeploy/archive/refs/heads/main.zip) directly from GitHub.com.
-*  start from a terminal:
-  
-> git clone https://github.com/codedeploy-org/codeploy
+Install a supported OS version on your local or virtual machine.
 
-### Supported OS version
+Based on imperial studies codeploy.org supports the following operating systems;
 
-Based on imperial studies codeploy.org supports the following operating systems
-
-*   [Debian](https://www.debian.org/) [12 - Bookworm]()
-
+*   [Debian](https://www.debian.org/) [12 - Bookworm](https://www.debian.org/releases/bookworm/)
 
 ### Grant user sudo-rights to current user
 
@@ -32,6 +25,17 @@ Based on imperial studies codeploy.org supports the following operating systems
 ### Reboot system to make changes effective
 
 `/sbin/reboot`
+
+### Download the code to your local machine
+
+Have an supported OS installed on your computer.
+
+Download the repo by either;
+*  as a [.zip archive](https://github.com/codeploy-org/codeploy/archive/refs/heads/main.zip) directly from GitHub.com.
+*  start from a terminal:
+  
+> git clone https://github.com/codedeploy-org/codeploy
+
 
 ## Creating an Operating System image
 
