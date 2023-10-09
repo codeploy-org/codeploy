@@ -20,3 +20,6 @@
   community.general.dconf:
     key: /org/gnome/TextEditor/indent-style
     value: "'space'"
+
+- name: Pause
+  pause:
