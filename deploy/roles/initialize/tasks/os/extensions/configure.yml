@@ -8,8 +8,8 @@
 
 - name: Enable touchpad tap-to-click
   community.general.dconf:
-    key: /org/gnome/desktop/wm/preferences/button-layout
-    value: 'appmenu:minimize,maximize,close'
+    key: /org/gnome/desktop/wm/preferences/button-layout/appmenu
+    value: 'minimize,maximize,close'
 
 - name: Pause
   pause:
