@@ -6,10 +6,30 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
-# ---
-# - name: Set Dark Mode using dconf
-#   ansible.builtin.dconf:
-#     key: /org/gnome/desktop/interface/gtk-theme
-#     value: 'Adwaita-dark'
-#     state: present  # Use 'present' to set the value, 'absent' to remove it
-# #    user: "{{ ansible_user }}"  # Specify the target user
+---
+
+# - name: Set Dark mode
+#   shell: |
+#     dconf write /org/gnome/desktop/interface/gtk-theme "'Adwaita-dark'"
+#     dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
+
+- name: Install dbus-x11
+  ansible.builtin.apt:
+    pkg:
+      - dbus-x11
+    autoremove: yes
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+
+- name: Set Dark mode using dconf
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/gtk-theme"
+    value: "'Adwaita-dark'"
+    state: present
+
+- name: Set Dark mode using dconf
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/color-scheme"
+    value: "'prefer-dark'"
+    state: present
