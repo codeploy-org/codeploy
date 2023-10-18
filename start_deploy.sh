@@ -1,3 +1,4 @@
+#!/bin/bash
 # This file is part of CODEPLOY.ORG.
 #
 # CODEPLOY.ORG is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -7,7 +8,6 @@
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
 # Ensure the latest changes are pulled
-
 if [ -d ~/codeploy ]; then
     echo git pull
     cd ~/codeploy
@@ -21,10 +21,17 @@ fi
 # Check if Ansible is installed, if not install
 apt_app="ansible"
 apt list --installed $apt_app | grep -i $apt_app || sudo apt install -y $apt_app
-
 sudo apt install python3-psutil
 
-source ~/Documents/drive/env-settings/*
+# Loop for enumerating files which contain personalisation variables
+export codeploy_env_path=~/Documents/drive/codeploy/env-settings
+if [ -d $codeploy_env_path ]; then
+    find $codeploy_env_path -type f -name "*.env" | while read -r file; do
+        source $file
+    done
+else
+    echo "$codeploy_env_path not found"
+fi
 
 # Include community collection
 
