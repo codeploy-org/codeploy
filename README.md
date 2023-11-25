@@ -58,9 +58,11 @@ Start the playbook by running, using your regular account.
 
 | Name | Brand | Type |
 | --- | --- | --- |
-| debian12.lab.home | QEMU | Standard PC (Q35 + ICH9, 2009) |
-| bookworm.lab.corp | VMware, Inc.| VMware Virtual Platform |
-| a1369.lab.home | Apple Inc. | MacBookAir4,2 |
-| xps7590.lab.home | Dell Inc. | XPS 15 7590 |
-| e6420.lab.home | Dell Inc. | Latitude E6420 |
-| e6430.lab.home | Dell Inc. | Latitude E6430 |
+| debian12 | QEMU | Standard PC (Q35 + ICH9, 2009) |
+| bookworm | VMware, Inc.| VMware Virtual Platform |
+| a1369 | Apple Inc. | MacBookAir4,2 |
+| imac | Apple Inc. | iMac12,1 |
+| xps7590 | Dell Inc. | XPS 15 7590 |
+| e6420 | Dell Inc. | Latitude E6420 |
+| e6430 | Dell Inc. | Latitude E6430 |
+| x200t | | |
