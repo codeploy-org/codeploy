@@ -6,17 +6,17 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 ---
-- name: Bitwarden-GUI prerequisites install - snapd
+- name: bitwarden gui - prerequisites - snapd
   apt:
     name: snapd
     state: present
 
-- name: Bitwarden-GUI prerequisites install - snap-confine
+- name: bitwarden gui - prerequisites - snap-confine
   apt:
     name: snap-confine
     state: present
 
-- name: Install Bitwarden-GUI using Snap
+- name: bitwarden gui - deploy
   snap:
     name: bitwarden
     state: present

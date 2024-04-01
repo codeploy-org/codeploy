@@ -6,18 +6,25 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 ---
-- name: bitwarden cli - prerequisite - node.js
-  package:
-    name: nodejs
+- name: github-desktop - prerequisites - flatpak
+  ansible.builtin.apt:
+    pkg:
+      - flatpak
+      - gnome-software-plugin-flatpak
+    autoremove: yes
+    update_cache: yes
+    cache_valid_time: 3600
     state: present
 
-- name: bitwarden cli - prerequisite - npm
-  package:
-    name: npm
+- name: github-desktop - prerequisites - add flatpak repository
+  community.general.flatpak_remote:
+    name: flathub
     state: present
+    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+    method: user
 
-- name: bitwarden cli - deploy
-  npm:
-    name: '@bitwarden/cli'
-    global: yes
-    
+- name: github-desktop - deploy
+  community.general.flatpak:
+    name: io.github.shiftey.Desktop
+    state: present
+    remote: flathub
