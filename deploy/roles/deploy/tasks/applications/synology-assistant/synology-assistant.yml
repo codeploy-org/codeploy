@@ -21,7 +21,6 @@
     name: flathub
     state: present
     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
-    method: user
 
 - name: synology-assistant - deploy
   community.general.flatpak:

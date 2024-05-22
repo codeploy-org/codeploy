@@ -19,7 +19,7 @@
   loop: "{{ found_files.files | map(attribute='path') | list | sort }}"
 
 # Hardware
-- name: Findind tasks 'hardware'
+- name: Finding tasks 'hardware'
   find:
     paths: ./roles/initialize/tasks/hardware
     patterns: "*.yml"
