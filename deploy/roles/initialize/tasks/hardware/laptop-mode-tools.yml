@@ -26,4 +26,16 @@
         name: laptop-mode
         state: started
 
+    - name: Remove any existing HandleLidSwitch lines
+      lineinfile:
+        path: /etc/systemd/logind.conf
+        regexp: '^#?\s*HandleLidSwitch='  # Match commented and uncommented lines
+        state: absent
+
+    - name: Ensure HandleLidSwitch is set to lock
+      lineinfile:
+        path: /etc/systemd/logind.conf
+        line: 'HandleLidSwitch=lock'
+        state: present
+        
   when: ansible_facts['form_factor'] == 'Notebook'
