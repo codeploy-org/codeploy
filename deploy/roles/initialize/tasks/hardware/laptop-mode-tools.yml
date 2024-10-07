@@ -6,11 +6,8 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
-- name: Determine if the machine is a laptop or notebook
-  set_fact:
-    is_laptop: "{{ 'Laptop' in ansible_facts['ansible_product_name'] or 'Notebook' in ansible_facts['ansible_product_name'] }}"
-
-- block:
+- name: Install and configure laptop-mode-tools on notebooks
+  block:
     - name: Install laptop-mode-tools
       ansible.builtin.apt:
         pkg:
@@ -30,4 +27,4 @@
         name: laptop-mode
         state: started
 
-  when: is_laptop
+  when: ansible_facts['ansible_form_factor'] == 'Notebook'
