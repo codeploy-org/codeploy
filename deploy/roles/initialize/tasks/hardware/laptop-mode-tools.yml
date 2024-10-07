@@ -1,0 +1,33 @@
+# This file is part of CODEPLOY.ORG.
+#
+# CODEPLOY.ORG is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# CODEPLOY.ORG is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
+
+- name: Determine if the machine is a laptop or notebook
+  set_fact:
+    is_laptop: "{{ 'Laptop' in ansible_facts['ansible_product_name'] or 'Notebook' in ansible_facts['ansible_product_name'] }}"
+
+- block:
+    - name: Install laptop-mode-tools
+      ansible.builtin.apt:
+        pkg:
+          - laptop-mode-tools
+        autoremove: yes
+        update_cache: yes
+        cache_valid_time: 3600
+        state: present
+
+    - name: Enable laptop-mode service
+      ansible.builtin.service:
+        name: laptop-mode
+        enabled: yes
+
+    - name: Start laptop-mode service
+      ansible.builtin.service:
+        name: laptop-mode
+        state: started
+
+  when: is_laptop
