@@ -5,9 +5,8 @@
 # CODEPLOY.ORG is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
-
-- name: Install and configure laptop-mode-tools on notebooks
-  block:
+---
+- block:
     - name: Install laptop-mode-tools
       ansible.builtin.apt:
         pkg:
@@ -27,4 +26,4 @@
         name: laptop-mode
         state: started
 
-  when: ansible_facts['ansible_form_factor'] == 'Notebook'
+  when: ansible_facts['form_factor'] == 'Notebook'
