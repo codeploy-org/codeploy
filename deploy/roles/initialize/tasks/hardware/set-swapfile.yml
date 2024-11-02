@@ -8,7 +8,6 @@
 - name: Create 8GB swap file
   command: dd if=/dev/zero of=/swapfile bs=1024k count=8192
            creates="/swapfile"
-  when: ansible_facts['product_name'] == "MacBookAir4,2"
   tags:
     - swap.file.create
 
@@ -17,22 +16,19 @@
         owner=root
         group=root
         mode=0600
-  when: ansible_facts['product_name'] == "MacBookAir4,2"
   tags:
     - swap.file.permissions
 
 - name: "Check swap file type"
   command: file /swapfile
   register: swapfile
-  when: ansible_facts['product_name'] == "MacBookAir4,2"
   tags:
     - swap.file.mkswap
 
 - name: Make swap file
   command: "sudo mkswap /swapfile"
   when: |
-    swapfile.stdout.find('swap file') == -1 and
-    ansible_facts['product_name'] == "MacBookAir4,2"
+    swapfile.stdout.find('swap file') == -1
   tags:
     - swap.file.mkswap
 
@@ -44,14 +40,12 @@
          passno=0
          dump=0
          state=present
-  when: ansible_facts['product_name'] == "MacBookAir4,2"
   tags:
     - swap.fstab
 
 - name: Mount swap
   command: "swapon /swapfile"
   when: |
-    ansible_swaptotal_mb < 1 and
-    ansible_facts['product_name'] == "MacBookAir4,2"
+    ansible_swaptotal_mb < 1
   tags:
     - swap.file.swapon
