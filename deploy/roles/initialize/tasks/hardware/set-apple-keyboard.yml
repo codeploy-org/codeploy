@@ -6,6 +6,9 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 
+# Apple - PageFragmentKeyboard
+# https://wiki.debian.org/InstallingDebianOn/Apple/PageFragmentKeyboard
+
 - name: Set fn-keymode for Apple Inc. - MacBookAir4,2
   copy:
     dest: /etc/modprobe.d/hid_apple.conf
