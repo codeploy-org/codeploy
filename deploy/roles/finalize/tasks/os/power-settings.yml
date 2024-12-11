@@ -15,16 +15,37 @@
     cache_valid_time: 3600
     state: present
 
-- name: Set Dark mode using dconf
+- name: Set idle screen dimming
   community.general.dconf:
-    key: "/org/gnome/desktop/interface/gtk-theme"
-    value: "'Adwaita-dark'"
+    key: "/org/gnome/settings-daemon/plugins/power/idle-dim"
+    value: "false"
     state: present
   become_user: "{{ ansible_facts.env.SUDO_USER }}"
 
-- name: Set Dark mode using dconf
+- name: Set automatic power saving
   community.general.dconf:
-    key: "/org/gnome/desktop/interface/color-scheme"
-    value: "'prefer-dark'"
+    key: "/org/gnome/settings-daemon/plugins/power/power-saver-profile-on-low-battery"
+    value: "true"
+    state: present
+  become_user: "{{ ansible_facts.env.SUDO_USER }}"
+
+- name: Set power button action
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/power-button-action"
+    value: "'hibernate'"
+    state: present
+  become_user: "{{ ansible_facts.env.SUDO_USER }}"
+
+- name: Set automatic suspend on battery
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-type"
+    value: "'nothing'"
+    state: present
+  become_user: "{{ ansible_facts.env.SUDO_USER }}"
+
+- name: Set automatic suspend on AC
+  community.general.dconf:
+    key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type"
+    value: "'nothing'"
     state: present
   become_user: "{{ ansible_facts.env.SUDO_USER }}"
