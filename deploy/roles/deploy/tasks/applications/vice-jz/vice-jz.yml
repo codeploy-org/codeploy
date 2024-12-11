@@ -7,8 +7,12 @@
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 ---
 - name: vice-jz - prerequisites - snapd
-  apt:
-    name: snapd
+  ansible.builtin.apt:
+    pkg:
+      - snapd
+    autoremove: yes
+    update_cache: yes
+    cache_valid_time: 3600
     state: present
 
 - name: vice-jz - deploy

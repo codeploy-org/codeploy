@@ -27,12 +27,11 @@
     key: "/org/gnome/desktop/interface/gtk-theme"
     value: "'Adwaita-dark'"
     state: present
-  # become_user: "{{ ansible_user }}"
-  
+  become_user: "{{ ansible_facts.env.SUDO_USER }}"
 
 - name: Set Dark mode using dconf
   community.general.dconf:
     key: "/org/gnome/desktop/interface/color-scheme"
     value: "'prefer-dark'"
     state: present
-  # become_user: "{{ ansible_user }}"
+  become_user: "{{ ansible_facts.env.SUDO_USER }}"
