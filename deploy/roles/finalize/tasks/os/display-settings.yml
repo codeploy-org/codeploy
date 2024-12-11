@@ -46,6 +46,6 @@
 - name: Set night light temperature
   community.general.dconf:
     key: "/org/gnome/settings-daemon/plugins/color/night-light-temperature"
-    value: "unit32 2700"
+    value: "uint32 2700"
     state: present
   become_user: "{{ ansible_facts.env.SUDO_USER }}"
