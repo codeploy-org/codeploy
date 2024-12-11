@@ -6,17 +6,17 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 ---
-- name: bitwarden cli - prerequisite - node.js
+- name: "{{ item | basename | splitext | first }} - prerequisite - node.js"
   package:
     name: nodejs
     state: present
 
-- name: bitwarden cli - prerequisite - npm
+- name: "{{ item | basename | splitext | first }} - prerequisite - npm"
   package:
     name: npm
     state: present
 
-- name: bitwarden cli - deploy
+- name: "{{ item | basename | splitext | first }} - deploy"
   npm:
     name: '@bitwarden/cli'
     global: yes
