@@ -1,0 +1,23 @@
+# This file is part of CODEPLOY.ORG.
+#
+# CODEPLOY.ORG is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# CODEPLOY.ORG is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
+---
+- name: Install dbus-x11
+  ansible.builtin.apt:
+    pkg:
+      - dbus-x11
+    autoremove: yes
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+
+- name: Set scaling factor
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/text-scaling-factor"
+    value: "0.8"
+    state: present
+  become_user: "{{ ansible_facts.env.SUDO_USER }}"
