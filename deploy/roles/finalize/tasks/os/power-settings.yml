@@ -24,7 +24,7 @@
 
 - name: Set screen blanking timeout
   community.general.dconf:
-    key: "/org/gnome/settings-daemon/desktop/session/idle-delay"
+    key: "/org/gnome/desktop/session/idle-delay"
     value: "uint32 0"
     state: present
   become_user: "{{ ansible_facts.env.SUDO_USER }}"
