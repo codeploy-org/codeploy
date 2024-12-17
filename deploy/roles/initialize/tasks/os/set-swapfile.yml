@@ -5,14 +5,18 @@
 # CODEPLOY.ORG is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
-- name: Check if swapfile already exists
-  stat:
-    path: /swapfile
+
+- name: Verify if /swapfile exists in /etc/fstab
+  lineinfile:
+    path: /etc/fstab
+    line: "/swapfile none swap sw 0 0"
+    state: present
+  check_mode: true
   register: swapfile_check
 
 - name: Create swapfile
   command: fallocate -l 8G /swapfile
-  when: not swapfile_check.stat.exists
+  when: swapfile_check.changed == true
 
 - name: Set swapfile permissions
   file:
@@ -20,17 +24,20 @@
     mode: '0600'
     owner: root
     group: root
+  when: swapfile_check.changed == true
 
 - name: Make swapfile
   command: mkswap /swapfile
-  when: not swapfile_check.stat.exists
+  when: swapfile_check.changed == true
 
 - name: Enable swapfile
   command: swapon /swapfile
-  when: not swapfile_check.stat.exists
+  when: swapfile_check.changed == true
 
 - name: Ensure swapfile is in /etc/fstab
   lineinfile:
     path: /etc/fstab
     line: '/swapfile none swap sw 0 0'
     state: present
+  when: swapfile_check.changed == true
+
