@@ -7,17 +7,26 @@
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 ---
 - name: "{{ item | basename | splitext | first }} - prerequisite - node.js"
-  package:
-    name: nodejs
+  ansible.builtin.apt:
+    pkg:
+      - nodejs
+    autoremove: yes
+    update_cache: yes
+    cache_valid_time: 3600
     state: present
 
 - name: "{{ item | basename | splitext | first }} - prerequisite - npm"
-  package:
-    name: npm
+  ansible.builtin.apt:
+    pkg:
+      - npm
+    autoremove: yes
+    update_cache: yes
+    cache_valid_time: 3600
     state: present
 
 - name: "{{ item | basename | splitext | first }} - deploy"
-  npm:
+  community.general.npm:
     name: '@bitwarden/cli'
+    state: present
     global: yes
     
