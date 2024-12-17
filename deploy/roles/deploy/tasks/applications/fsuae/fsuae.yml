@@ -6,12 +6,16 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 ---
-- name: fsuae - prerequisites - snapd
-  apt:
-    name: snapd
+- name: "{{ item | basename | splitext | first }} - prerequisites - snapd"
+  ansible.builtin.apt:
+    pkg:
+      - snapd
+    autoremove: yes
+    update_cache: yes
+    cache_valid_time: 3600
     state: present
 
-- name: fsuae
+- name: "{{ item | basename | splitext | first }} - deploy"
   community.general.snap:
     name:
       - fsuae
