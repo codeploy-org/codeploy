@@ -6,18 +6,27 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 ---
-- name: bitwarden gui - prerequisites - snapd
-  apt:
-    name: snapd
+- name: "{{ item | basename | splitext | first }} - prerequisites - snapd"
+  ansible.builtin.apt:
+    pkg:
+      - snapd
+    autoremove: yes
+    update_cache: yes
+    cache_valid_time: 3600
     state: present
 
-- name: bitwarden gui - prerequisites - snap-confine
-  apt:
-    name: snap-confine
+- name: "{{ item | basename | splitext | first }} - prerequisites - snap-confine"
+  ansible.builtin.apt:
+    pkg:
+      - snap-confine
+    autoremove: yes
+    update_cache: yes
+    cache_valid_time: 3600
     state: present
 
-- name: bitwarden gui - deploy
-  snap:
-    name: bitwarden
+- name: "{{ item | basename | splitext | first }} - prerequisites - deploy"
+  community.general.snap:
+    name:
+      - bitwarden
     state: present
   become: yes
