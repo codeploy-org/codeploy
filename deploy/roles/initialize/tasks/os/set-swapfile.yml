@@ -1,0 +1,36 @@
+# This file is part of CODEPLOY.ORG.
+#
+# CODEPLOY.ORG is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# CODEPLOY.ORG is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
+- name: Check if swapfile already exists
+  stat:
+    path: /swapfile
+  register: swapfile_check
+
+- name: Create swapfile
+  command: fallocate -l 8G /swapfile
+  when: not swapfile_check.stat.exists
+
+- name: Set swapfile permissions
+  file:
+    path: /swapfile
+    mode: '0600'
+    owner: root
+    group: root
+
+- name: Make swapfile
+  command: mkswap /swapfile
+  when: not swapfile_check.stat.exists
+
+- name: Enable swapfile
+  command: swapon /swapfile
+  when: not swapfile_check.stat.exists
+
+- name: Ensure swapfile is in /etc/fstab
+  lineinfile:
+    path: /etc/fstab
+    line: '/swapfile none swap sw 0 0'
+    state: present
