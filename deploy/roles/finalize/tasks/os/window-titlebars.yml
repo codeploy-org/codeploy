@@ -18,6 +18,6 @@
 - name: Set window button layout
   community.general.dconf:
     key: "/org/gnome/desktop/wm/preferences/button-layout"
-    value: "'appmenu:maximize,close'"
+    value: "'appmenu:minimize,maximize,close'"
     state: present
   become_user: "{{ ansible_facts.env.SUDO_USER }}"
