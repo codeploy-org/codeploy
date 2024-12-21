@@ -38,10 +38,9 @@
     file:
       path: /etc/profile.d/set_keyboard_backlight.sh
       mode: '0755'
-
   when:
     - not script_exists.stat.exists
-    - backlight_path.stdout == ""
+    - not backlight_path.stdout == ""
 
 - name: "{{ item | basename | splitext | first }} - Final block excution"
   block:
@@ -50,12 +49,7 @@
       path: /etc/profile.d/set_keyboard_backlight.sh
     register: script_exists
 
-  - name: "{{ item | basename | splitext | first }} - Find the keyboard backlight directory"
-    command: find /sys/class/leds/ -name '*kbd_backlight'
-    register: backlight_path
-
   - name: "{{ item | basename | splitext | first }} - Execute the keyboard backlight script"
     shell: /etc/profile.d/set_keyboard_backlight.sh
     when: 
       - script_exists.stat.exists
-      - not backlight_path.stdout == ""
