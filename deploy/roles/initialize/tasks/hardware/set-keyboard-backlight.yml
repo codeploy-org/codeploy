@@ -1,0 +1,59 @@
+# This file is part of CODEPLOY.ORG.
+#
+# CODEPLOY.ORG is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# CODEPLOY.ORG is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
+---
+- name: Check if the login script already exists
+  stat:
+    path: /etc/profile.d/set_keyboard_backlight.sh
+  register: script_exists
+
+- name: Find the keyboard backlight directory
+  command: find /sys/class/leds/ -name '*kbd*'
+  register: backlight_path
+
+- name: Block to check and handle existing script
+  block:
+  - name: Read max brightness value
+    command: cat {{ backlight_path.stdout }}/max_brightness
+    register: max_brightness
+
+  - name: Create the login script for setting keyboard backlight
+    vars:
+      brightness_percentage: 75  # Task-specific variable
+    copy:
+      dest: /etc/profile.d/set_keyboard_backlight.sh
+      content: |
+        #!/bin/bash
+        # Set Keyboard Backlight Brightness on Login
+        BRIGHTNESS_PERCENTAGE=${BRIGHTNESS_PERCENTAGE:-{{ brightness_percentage }}}
+        MAX_BRIGHTNESS=$(cat {{ backlight_path.stdout }}/max_brightness)
+        BRIGHTNESS=$(( MAX_BRIGHTNESS * BRIGHTNESS_PERCENTAGE / 100 ))
+        echo $BRIGHTNESS > {{ backlight_path.stdout }}/brightness
+
+  - name: Ensure the script is executable
+    file:
+      path: /etc/profile.d/set_keyboard_backlight.sh
+      mode: '0755'
+
+  when:
+    - not script_exists.stat.exists
+    - backlight_path.stdout == ""
+  
+- name: Check if the login script exists
+  stat:
+    path: /etc/profile.d/set_keyboard_backlight.sh
+  register: script_exists
+
+- name: Find the keyboard backlight directory
+  command: find /sys/class/leds/ -name '*kbd*'
+  register: backlight_path
+
+- name: Execute the keyboard backlight script
+  shell: /etc/profile.d/set_keyboard_backlight.sh
+  when: 
+    - script_exists.stat.exists
+    - not backlight_path.stdout == ""
