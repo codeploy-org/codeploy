@@ -6,22 +6,22 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 ---
-- name: Check if the login script already exists
+- name: "{{ item | basename | splitext | first }} - pre-check - script exists"
   stat:
     path: /etc/profile.d/set_keyboard_backlight.sh
   register: script_exists
 
-- name: Find the keyboard backlight directory
+- name: "{{ item | basename | splitext | first }} - pre-check - find backlight_path"
   command: find /sys/class/leds/ -name '*kbd*'
   register: backlight_path
 
-- name: Block to check and handle existing script
+- name: "{{ item | basename | splitext | first }} - Block execucution"
   block:
-  - name: Read max brightness value
+  - name: "{{ item | basename | splitext | first }} - Read max brightness value"
     command: cat {{ backlight_path.stdout }}/max_brightness
     register: max_brightness
 
-  - name: Create the login script for setting keyboard backlight
+  - name: "{{ item | basename | splitext | first }} - Create the login script for setting keyboard backlight"
     vars:
       brightness_percentage: 75  # Task-specific variable
     copy:
@@ -34,7 +34,7 @@
         BRIGHTNESS=$(( MAX_BRIGHTNESS * BRIGHTNESS_PERCENTAGE / 100 ))
         echo $BRIGHTNESS > {{ backlight_path.stdout }}/brightness
 
-  - name: Ensure the script is executable
+  - name: "{{ item | basename | splitext | first }} - Ensure the script is executable"
     file:
       path: /etc/profile.d/set_keyboard_backlight.sh
       mode: '0755'
@@ -42,18 +42,20 @@
   when:
     - not script_exists.stat.exists
     - backlight_path.stdout == ""
-  
-- name: Check if the login script exists
-  stat:
-    path: /etc/profile.d/set_keyboard_backlight.sh
-  register: script_exists
 
-- name: Find the keyboard backlight directory
-  command: find /sys/class/leds/ -name '*kbd*'
-  register: backlight_path
+- name: "{{ item | basename | splitext | first }} - Final block excution"
+  block:
+  - name: "{{ item | basename | splitext | first }} - Check if the login script exists"
+    stat:
+      path: /etc/profile.d/set_keyboard_backlight.sh
+    register: script_exists
 
-- name: Execute the keyboard backlight script
-  shell: /etc/profile.d/set_keyboard_backlight.sh
-  when: 
-    - script_exists.stat.exists
-    - not backlight_path.stdout == ""
+  - name: "{{ item | basename | splitext | first }} - Find the keyboard backlight directory"
+    command: find /sys/class/leds/ -name '*kbd*'
+    register: backlight_path
+
+  - name: "{{ item | basename | splitext | first }} - Execute the keyboard backlight script"
+    shell: /etc/profile.d/set_keyboard_backlight.sh
+    when: 
+      - script_exists.stat.exists
+      - not backlight_path.stdout == ""
