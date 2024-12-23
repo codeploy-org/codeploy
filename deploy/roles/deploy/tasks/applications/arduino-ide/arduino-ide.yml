@@ -16,6 +16,12 @@
     cache_valid_time: 3600
     state: present
 
+- name: "{{ item | basename | splitext | first }} - prerequisite - flatpak repository"
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+
 - name: "{{ item | basename | splitext | first }} - deploy"
   community.general.flatpak:
     name: cc.arduino.IDE2
