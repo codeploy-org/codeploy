@@ -14,3 +14,6 @@
     update_cache: yes
     cache_valid_time: 3600
     state: present
+  when:
+    - ansible_facts['distribution'] == "Debian"
+    - ansible_facts['distribution_major_version'] | int <= 12
