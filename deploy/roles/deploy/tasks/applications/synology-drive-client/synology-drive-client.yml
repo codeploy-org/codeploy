@@ -6,26 +6,6 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 ---
-- name: stack-client - prerequisites - adding gpg-key
-  ansible.builtin.get_url:
-    url: https://filehosting-client.transip.nl/transip-stack.gpg
-    dest: /usr/share/keyrings/transip-stack.gpg
-
-- name: stack-client - prerequisites - adding repository
-  ansible.builtin.apt_repository:
-    repo: deb [arch=amd64 signed-by=/usr/share/keyrings/transip-stack.gpg] https://filehosting-client.transip.nl/packages/stack-debian-11/ ./
-    state: present
-    filename: stack-client-list
-
-- name: stack-client - deploy
-  ansible.builtin.apt:
-    pkg:
-      - stack-client
-    autoremove: yes
-    update_cache: yes
-    cache_valid_time: 3600
-    state: present
-
 - name: synology-drive-client - prerequisites - fetch URL
   uri:
     url: "https://archive.synology.com/download/Utility/SynologyDriveClient/"
