@@ -6,11 +6,17 @@
 #
 # You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
 ---
-- name: telegram-desktop - deploy
-  ansible.builtin.apt:
-    pkg:
-      - telegram-desktop
-    autoremove: yes
-    update_cache: yes
-    cache_valid_time: 3600
+- name: telegram-desktop - prerequisites - flatpak
+  apt:
+    name: flatpak
     state: present
+
+- name: telegram-desktop - prerequisites - flatpak repository
+  command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  args:
+    creates: /var/lib/flatpak/repo/flathub.trustedkeys.gpg
+
+- name: telegram-desktop - deploy
+  command: flatpak install -y flathub org.telegram.desktop
+  args:
+    creates: /var/lib/flatpak/app/org.telegram.desktop
