@@ -1,0 +1,65 @@
+# This file is part of CODEPLOY.ORG.
+#
+# CODEPLOY.ORG is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#
+# CODEPLOY.ORG is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with CODEPLOY.ORG. If not, see <https://www.gnu.org/licenses/>. 
+---
+- name: stack-client - prerequisites - adding gpg-key
+  ansible.builtin.get_url:
+    url: https://filehosting-client.transip.nl/transip-stack.gpg
+    dest: /usr/share/keyrings/transip-stack.gpg
+
+- name: stack-client - prerequisites - adding repository
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64 signed-by=/usr/share/keyrings/transip-stack.gpg] https://filehosting-client.transip.nl/packages/stack-debian-11/ ./
+    state: present
+    filename: stack-client-list
+
+- name: stack-client - deploy
+  ansible.builtin.apt:
+    pkg:
+      - stack-client
+    autoremove: yes
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+
+- name: synology-drive-client - prerequisites - fetch URL
+  uri:
+    url: "https://archive.synology.com/download/Utility/SynologyDriveClient/"
+    return_content: yes
+  register: listing
+
+- name: synology-drive-client - prerequisites - extract file names
+  set_fact:
+    latest_dir: "{{ listing.content | regex_findall('href=\"(\\d+\\.\\d+\\.\\d+-\\d+)/\"') | sort | last }}"
+
+- name: synology-drive-client - prerequisites - fetch latest version
+  uri:
+    url: "{{ base_url }}/{{ latest_dir }}/"
+    return_content: yes
+  register: sublisting
+
+- name: synology-drive-client - prerequisites - fetch .deb download URL for x86_64
+  set_fact:
+    deb_url: "{{ (sublisting.content | regex_findall('href=\"([^\"]+\\.x86_64\\.deb)\"')).0 }}"
+
+- name: synology-drive-client - prerequisites - build URL
+  set_fact:
+    full_url: "{{ base_url }}/{{ latest_dir }}/{{ deb_url }}"
+
+- name: synology-drive-client - prerequisites - wget gdebi-core
+  apt:
+    name: [wget, gdebi-core]
+    state: present
+    update_cache: yes
+
+- name: synology-drive-client - prerequisites - download latest version
+  get_url:
+    url: "{{ full_url }}"
+    dest: "/tmp/{{ deb_url }}"
+
+- name: synology-drive-client - deploy
+  command: gdebi -n "/tmp/{{ deb_url }}"
