@@ -35,7 +35,13 @@
     - name: Ensure HandleLidSwitch is set to lock
       lineinfile:
         path: /etc/systemd/logind.conf
-        line: 'HandleLidSwitch=lock'
+        line: 'HandleLidSwitch=suspend'
+        state: present
+        
+    - name: Ensure HandleLidSwitchDocked is set to lock
+      lineinfile:
+        path: /etc/systemd/logind.conf
+        line: 'HandleLidSwitchDocked=suspend'
         state: present
         
   when: ansible_facts['form_factor'] == 'Notebook'
